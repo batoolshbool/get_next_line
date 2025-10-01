@@ -6,25 +6,97 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/09/28 09:53:34 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:45:35 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static char	*read_and_save(int fd, char *buffer)
+{
+	char	*malloced;
+	ssize_t	readd;
+	char	*temp;
+
+	readd = 1;
+	malloced = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!malloced)
+		return (NULL);
+	while ((!buffer || !ft_strchr(buffer, '\n')) && readd > 0)
+	{
+		readd = read(fd, malloced, BUFFER_SIZE);
+		if (readd == -1)
+		{
+			free(malloced);
+			free(buffer);
+			return (NULL);
+		}
+		malloced[readd] = '\0';
+		temp = buffer;
+		buffer = ft_strjoin(temp, malloced);
+		free(temp);
+	}
+	free(malloced);
+	return (buffer);
+}
+
+static char	*extract_line(char *buffer)
+{
+	char	*line;
+	int		i;
+
+	if (!buffer || !buffer[0])
+		return (NULL);
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\n')
+		i++;
+	line = ft_substr(buffer, 0, i);
+	return (line);
+}
+
+static char	*clear_buffer(char *buffer)
+{
+	int		i;
+	char	*new;
+
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (!buffer[i])
+	{
+		free(buffer);
+		return (NULL);
+	}
+	i++;
+	new = ft_substr(buffer, i, ft_strlen(buffer) - i);
+	free(buffer);
+	return (new);
+}
+
 char	*get_next_line(int fd)
 {
-	static t_list	*list;
-	int		fileread;
-	char	*buffer;
+	static char	*buffer;
+	char		*returned_line;
 
-	list = NULL;
-	 if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &buffer, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free(buffer);
+		buffer = NULL;
 		return (NULL);
-	fileread = 0;
-	buffer = NULL;
-	//FUNCTION 1 ->  malloc + read + add to list
-	//FUNCTION 2 -> find 1st \n + copy 
-	//FUNCTION 3 -> put after \n in list for next call
-	return(buffer);
+	}
+	buffer = read_and_save(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	returned_line = extract_line(buffer);
+	if (!returned_line)
+	{
+		free(buffer);
+		buffer = NULL;
+		return (NULL);
+	}
+	buffer = clear_buffer(buffer);
+	free(buffer);
+	return (returned_line);
 }

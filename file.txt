@@ -1,4 +1,3 @@
-LINE 1
-LINE 2
-LINE 3
-LINE 4
+line 1
+line 2
+line 3
