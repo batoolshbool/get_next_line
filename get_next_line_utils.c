@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:42 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/01 09:40:27 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/01 11:38:27 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*ft_strchr(const char *str, int c)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		if (str[i] == (char)c)
 			return ((char *)&str[i]);
