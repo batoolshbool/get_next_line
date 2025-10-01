@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:42 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/01 11:38:27 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/01 13:26:41 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strdup(const char *s)
 {
-	char	*hi;
+	char	*malloced;
 	size_t	j;
 	size_t	len;
 
 	len = ft_strlen(s);
-	hi = (char *)malloc((len + 1) * sizeof(char));
-	if (hi == NULL)
+	malloced = malloc(len + 1);
+	if (!malloced)
 		return (0);
 	j = 0;
 	while (j <= len)
 	{
-		hi[j] = s[j];
+		malloced[j] = s[j];
 		j++;
 	}
-	return (hi);
+	return (malloced);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
