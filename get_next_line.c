@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 08:03:38 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/05 08:43:42 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static char	*extract_line(char *buffer)
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (buffer[i] == '\n')
-		i++;
 	line = ft_substr(buffer, 0, i);
 	return (line);
 }

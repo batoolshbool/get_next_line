@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:42 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 07:59:06 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/05 08:49:11 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*hi;
+	char	*sub;
 	size_t	i;
 	size_t	slen;
 
@@ -84,17 +84,17 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	if (len > slen - start)
 		len = slen - start;
-	hi = (char *)malloc(sizeof(char) * (len + 1));
-	if (!hi)
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
 		return (NULL);
 	i = 0;
 	while (s[start + i] != '\0' && i < len)
 	{
-		hi[i] = s[start + i];
+		sub[i] = s[start + i];
 		i++;
 	}
-	hi[i] = '\0';
-	return (hi);
+	sub[i] = '\0';
+	return (sub);
 }
 
 char	*ft_strchr(const char *str, int c)
