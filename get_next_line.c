@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 08:51:52 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/05 09:17:59 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*read_and_save(int fd, char *buffer)
 	while ((!buffer || !ft_strchr(buffer, '\n')) && readd > 0)
 	{
 		readd = read(fd, malloced, BUFFER_SIZE);
-		if (readd == -1)
+		if (readd < 0)
 		{
 			free(malloced);
 			return (NULL);
@@ -34,6 +34,11 @@ static char	*read_and_save(int fd, char *buffer)
 		temp = buffer;
 		buffer = ft_strjoin(temp, malloced);
 		free(temp);
+		// if (!buffer)  // Guard against malloc failure
+		// {
+		// 	free(malloced);
+		// 	return (NULL);
+		// }
 	}
 	free(malloced);
 	return (buffer);
@@ -69,6 +74,11 @@ static char	*clear_buffer(char *buffer)
 		return (NULL);
 	}
 	i++;
+	if (buffer[i] == '\0')
+	{
+		free(buffer);
+		return (NULL);
+	}
 	new = ft_substr(buffer, i, ft_strlen(buffer) - i);
 	free(buffer);
 	return (new);
