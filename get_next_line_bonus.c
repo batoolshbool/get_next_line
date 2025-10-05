@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 11:08:51 by bshbool          ###   ########.fr       */
+/*   Created: 2025/10/05 10:00:40 by bshbool           #+#    #+#             */
+/*   Updated: 2025/10/05 11:07:38 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_and_save(int fd, char *buffer)
 {
@@ -28,12 +28,18 @@ static char	*read_and_save(int fd, char *buffer)
 		if (readd < 0)
 		{
 			free(malloced);
+			free(buffer); 
 			return (NULL);
 		}
 		malloced[readd] = '\0';
 		temp = buffer;
 		buffer = ft_strjoin(temp, malloced);
 		free(temp);
+		if (!buffer)
+		{
+			free(malloced);
+			return (NULL);
+		}
 	}
 	free(malloced);
 	return (buffer);
@@ -69,11 +75,6 @@ static char	*clear_buffer(char *buffer)
 		return (NULL);
 	}
 	i++;
-	if (buffer[i] == '\0')
-	{
-		free(buffer);
-		return (NULL);
-	}
 	new = ft_substr(buffer, i, ft_strlen(buffer) - i);
 	free(buffer);
 	return (new);
@@ -81,46 +82,41 @@ static char	*clear_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*returned_line;
+	static char	*buffer[OPEN_MAX];
+	char		*returned_line = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		free(buffer);
-		buffer = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0
+	|| read(fd, 0, 0) < 0 || fd >= OPEN_MAX)
 		return (NULL);
-	}
-	buffer = read_and_save(fd, buffer);
-	if (!buffer)
+	buffer[fd] = read_and_save(fd, buffer[fd]);
+	if(!buffer[fd])
 		return (NULL);
-	returned_line = extract_line(buffer);
-	if (!returned_line)
-	{
-		free(buffer);
-		buffer = NULL;
-		return (NULL);
-	}
-	buffer = clear_buffer(buffer);
+	returned_line = extract_line(buffer[fd]);
+	buffer[fd] = clear_buffer(buffer[fd]);
 	return (returned_line);
 }
 
-// #include "get_next_line.h"
 // #include <fcntl.h>
 // #include <stdio.h>
+// #include "get_next_line.h"
+
 // int main()
 // {
-// 	int fd = open("a.txt", O_RDONLY);
-// 	char *u;
-// 	int i = 0;
-// 	while (i <= 3)
-// 	{
-// 		u = get_next_line(fd);
-// 		if (u == NULL)
-// 			break;
-// 		printf("%s", u);
-// 		free(u);
-// 		i++;
-// 	}
-// 	close(fd);
-// 	return 0;
+// 	int fd = (open("a.txt", O_RDONLY));
+// 	int fd2 = (open("b.txt", O_RDONLY));
+// 	int fd3 = (open("c.txt", O_RDONLY));
+
+// 	char *a = NULL;
+
+// 	while(a == get_next_line(fd))
+// 		printf("1 -> %s", a);
+// 	printf("2 -> %s", get_next_line(fd));
+// 	printf("3 -> %s", get_next_line(fd));
+// 	printf("4 -> %s", get_next_line(fd3));
+// 	printf("5 -> %s", get_next_line(fd3));
+// 	printf("6 -> %s", get_next_line(fd2));
+// 	printf("7 -> %s", get_next_line(fd2));
+// 	printf("8 -> %s", get_next_line(fd3));
+// 	printf("9 -> %s", get_next_line(fd3));
+// 	printf("10 -> %s", get_next_line(fd));
 // }
