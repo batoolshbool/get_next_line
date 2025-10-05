@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/01 13:37:14 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/05 08:03:38 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*read_and_save(int fd, char *buffer)
 	ssize_t	readd;
 	char	*temp;
 
-	malloced = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	malloced = malloc(BUFFER_SIZE + 1);
 	if (!malloced)
 		return (NULL);
 	readd = 1;
@@ -98,26 +98,21 @@ char	*get_next_line(int fd)
 	buffer = clear_buffer(buffer);
 	return (returned_line);
 }
-/*c1r4s14% valgrind ./a.out
-==721657== Memcheck, a memory error detector
-==721657== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==721657== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==721657== Command: ./a.out
-==721657== 
-line 3
-==721657== 
-==721657== HEAP SUMMARY:
-==721657==     in use at exit: 23 bytes in 3 blocks
-==721657==   total heap usage: 13 allocs, 10 frees, 1,138 bytes allocated
-==721657== 
-==721657== LEAK SUMMARY:
-==721657==    definitely lost: 16 bytes in 2 blocks
-==721657==    indirectly lost: 0 bytes in 0 blocks
-==721657==      possibly lost: 0 bytes in 0 blocks
-==721657==    still reachable: 7 bytes in 1 blocks
-==721657==         suppressed: 0 bytes in 0 blocks
-==721657== Rerun with --leak-check=full to see details of leaked memory
-==721657== 
-==721657== For lists of detected and suppressed errors, rerun with: -s
-==721657== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-*/
+
+// #include "get_next_line.h"
+// #include <fcntl.h>
+// #include <stdio.h>
+// int main()
+// {
+// 	int fd =open("file.txt",O_RDONLY);
+// 	 char *u;
+// 	int i = 0;
+// 	while (i <= 3)
+// 	{
+// 		u = get_next_line(fd);
+// 		printf("%s",u);
+// 		free(u);
+// 		i++;
+// 	}
+// 	close(fd);
+// }
