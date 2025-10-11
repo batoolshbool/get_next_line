@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:00:40 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 11:07:38 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/11 14:38:59 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char	*clear_buffer(char *buffer)
 {
 	int		i;
 	char	*new;
-
 	i = 0;
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
@@ -87,7 +86,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0
 	|| read(fd, 0, 0) < 0 || fd >= OPEN_MAX)
+	{
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 		return (NULL);
+	}
 	buffer[fd] = read_and_save(fd, buffer[fd]);
 	if(!buffer[fd])
 		return (NULL);
