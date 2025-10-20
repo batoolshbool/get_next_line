@@ -6,11 +6,12 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 11:08:51 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/20 14:10:14 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+	#include <stdio.h>
 
 static char	*read_and_save(int fd, char *buffer)
 {
@@ -18,6 +19,7 @@ static char	*read_and_save(int fd, char *buffer)
 	ssize_t	readd;
 	char	*temp;
 
+	 printf("\n\nmeow\n\n");
 	malloced = malloc(BUFFER_SIZE + 1);
 	if (!malloced)
 		return (NULL);
@@ -100,9 +102,12 @@ char	*get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
+	 
 	buffer = clear_buffer(buffer);
 	return (returned_line);
 }
+
+
 
 // #include "get_next_line.h"
 // #include <fcntl.h>

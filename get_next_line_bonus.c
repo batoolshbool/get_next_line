@@ -6,11 +6,12 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:00:40 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/11 14:38:59 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/20 14:12:17 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include <stdio.h>
 
 static char	*read_and_save(int fd, char *buffer)
 {
@@ -79,25 +80,72 @@ static char	*clear_buffer(char *buffer)
 	return (new);
 }
 
+// char	*get_next_line(int fd)
+// {
+// 	static char	*buffer[OPEN_MAX];
+// 	char		*returned_line = NULL;
+
+// 	if (fd < 0 || BUFFER_SIZE <= 0
+// 	|| read(fd, 0, 0) < 0 || fd >= OPEN_MAX)
+// 	{
+// 		free(buffer[fd]);
+// 		buffer[fd] = NULL;
+// 		return (NULL);
+// 	}
+// 	buffer[fd] = read_and_save(fd, buffer[fd]);
+// 	if(!buffer[fd])
+// 		return (NULL);
+// 	returned_line = extract_line(buffer[fd]);
+// 	buffer[fd] = clear_buffer(buffer[fd]);
+// 	printf("\n\nmeow\n\n");
+// 	return (returned_line);
+// }
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer[OPEN_MAX];
 	char		*returned_line = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0
-	|| read(fd, 0, 0) < 0 || fd >= OPEN_MAX)
-	{
+	// Debugging prints to check conditions
+	printf("Entering get_next_line for fd: %d\n", fd);
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0 || fd >= OPEN_MAX) {
+		printf("Invalid fd or buffer size\n");
 		free(buffer[fd]);
 		buffer[fd] = NULL;
 		return (NULL);
 	}
+
+	// Debugging print to check if read_and_save is working correctly
+	printf("Before read_and_save for fd: %d\n", fd);
+	printf("Buffer[fd] before read: %s\n", buffer[fd] ? buffer[fd] : "NULL");
 	buffer[fd] = read_and_save(fd, buffer[fd]);
-	if(!buffer[fd])
+	printf("Buffer[fd] after read: %s\n", buffer[fd] ? buffer[fd] : "NULL");
+
+	if (!buffer[fd]) {
+		printf("Error reading from fd %d\n", fd);
 		return (NULL);
+	}
+
+	// Debugging to check if extract_line works correctly
 	returned_line = extract_line(buffer[fd]);
+	if (!returned_line) {
+		printf("Error: extract_line failed\n");
+		return (NULL);
+	}
+
+	// Final printf to check if we get here
+	printf("\n\nmeow\n\n");
+	fflush(stdout);
+
+	// Debugging buffer after clearing
+	printf("Buffer[fd] after clear: %s\n", buffer[fd] ? buffer[fd] : "NULL");
 	buffer[fd] = clear_buffer(buffer[fd]);
+
 	return (returned_line);
 }
+
+
 
 // #include <fcntl.h>
 // #include <stdio.h>
