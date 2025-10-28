@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:00:40 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/28 10:56:27 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/28 11:33:37 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,55 @@ char	*get_next_line(int fd)
 
 // #include <fcntl.h>
 // #include <stdio.h>
-// #include "get_next_line.h"
-// int main()
+// #include <stdlib.h>
+// #include "get_next_line_bonus.h"
+
+// int main(void)
 // {
-// 	int fd = (open("a.txt", O_RDONLY));
-// 	int fd2 = (open("b.txt", O_RDONLY));
-// 	int fd3 = (open("c.txt", O_RDONLY));
+//     int fd = open("a.txt", O_RDONLY);
+//     int fd2 = open("b.txt", O_RDONLY);
+//     int fd3 = open("c.txt", O_RDONLY);
 
-// 	char *a = NULL;
+//     char *a;
 
-// 	while(a == get_next_line(fd))
-// 		printf("1 -> %s", a);
-// 	printf("2a -> %s", get_next_line(fd));
-// 	printf("3a -> %s", get_next_line(fd));
-// 	printf("1c -> %s", get_next_line(fd3));
-// 	printf("2c -> %s", get_next_line(fd3));
-// 	printf("1b -> %s", get_next_line(fd2));
-// 	printf("2b -> %s", get_next_line(fd2));
-// 	printf("3c -> %s", get_next_line(fd3));
-// 	printf("4c -> %s", get_next_line(fd3));
-// 	printf("4a -> %s", get_next_line(fd));
+//     a = get_next_line(fd);
+//     printf("2a -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd);
+//     printf("3a -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd3);
+//     printf("1c -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd3);
+//     printf("2c -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd2);
+//     printf("1b -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd2);
+//     printf("2b -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd3);
+//     printf("3c -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd3);
+//     printf("4c -> %s", a);
+//     free(a);
+
+//     a = get_next_line(fd);
+//     printf("4a -> %s", a);
+//     free(a);
+
+//     close(fd);
+//     close(fd2);
+//     close(fd3);
+//     return 0;
 // }
