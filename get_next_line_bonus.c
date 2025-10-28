@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:00:40 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/28 11:33:37 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/28 11:53:35 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,15 @@ char	*get_next_line(int fd)
 	char		*returned_line ;
 
 	returned_line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0
-		|| read(fd, 0, 0) < 0 || fd >= OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
+		return (NULL);
+	if (read(fd, 0, 0) < 0)
 	{
-		free(buffer[fd]);
-		buffer[fd] = NULL;
+		if (buffer[fd])
+		{
+			free(buffer[fd]);
+			buffer[fd] = NULL;
+		}
 		return (NULL);
 	}
 	buffer[fd] = read_and_save(fd, buffer[fd]);
