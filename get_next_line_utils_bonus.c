@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:05:23 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/05 10:09:19 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/28 10:58:29 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	slen = ft_strlen(s);
 	if (start >= slen)
-	{
 		return (ft_strdup(""));
-	}
 	if (len > slen - start)
 		len = slen - start;
 	sub = (char *)malloc(sizeof(char) * (len + 1));
 	if (!sub)
 		return (NULL);
 	i = 0;
-	while (s[start + i] != '\0' && i < len)
+	while (/*s[start + i] != '\0' &&*/ i < len)
 	{
 		sub[i] = s[start + i];
 		i++;

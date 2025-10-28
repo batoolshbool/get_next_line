@@ -6,12 +6,11 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:03:28 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/20 14:10:14 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/10/28 10:45:44 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-	#include <stdio.h>
 
 static char	*read_and_save(int fd, char *buffer)
 {
@@ -19,7 +18,6 @@ static char	*read_and_save(int fd, char *buffer)
 	ssize_t	readd;
 	char	*temp;
 
-	 printf("\n\nmeow\n\n");
 	malloced = malloc(BUFFER_SIZE + 1);
 	if (!malloced)
 		return (NULL);
@@ -102,12 +100,9 @@ char	*get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
-	 
 	buffer = clear_buffer(buffer);
 	return (returned_line);
 }
-
-
 
 // #include "get_next_line.h"
 // #include <fcntl.h>
@@ -115,17 +110,14 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	int fd = open("a.txt", O_RDONLY);
-// 	char *u;
-// 	int i = 0;
-// 	while (i <= 3)
+// 	char *line;
+
+// 	while ((line = get_next_line(fd)) != NULL)
 // 	{
-// 		u = get_next_line(fd);
-// 		if (u == NULL)
-// 			break;
-// 		printf("%s", u);
-// 		free(u);
-// 		i++;
+// 		printf("%s", line);
+// 		free(line);
 // 	}
+
 // 	close(fd);
 // 	return 0;
 // }
