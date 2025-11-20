@@ -6,7 +6,7 @@
 /*   By: bshbool <bshbool@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:01:00 by bshbool           #+#    #+#             */
-/*   Updated: 2025/10/11 14:34:05 by bshbool          ###   ########.fr       */
+/*   Updated: 2025/11/20 19:15:46 by bshbool          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 # ifndef OPEN_MAX
-#  define OPEN_MAX 256
+#  define OPEN_MAX 1024
 # endif
 
 char	*get_next_line(int fd);
